@@ -5,8 +5,10 @@ import com.task.util.ContentUtil;
 
 public class OutputHtmlTest {
     public static void main(String[] args) {
-        String url = "http://v6.rabbitpre.com/m/neUzquH";
+        String url1 = "http://v6.rabbitpre.com/m/neUzquH";
+        String url2 = "http://www.rabbitpre.com/m/6Jn6fa8";
         OutputHtml outHtml = new OutputHtml();
-        outHtml.way_1(ContentUtil.getContent(url));
+        outHtml.way_1(ContentUtil.getContent(url1));
+        outHtml.way_1(ContentUtil.getContent(url2));
     }
 }

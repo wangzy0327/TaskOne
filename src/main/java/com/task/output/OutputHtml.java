@@ -12,7 +12,7 @@ public class OutputHtml{
         InputStream inputStream;//接收字节输入流
         InputStreamReader inputStreamReader;//将字节输入流转换成字符输入流
         BufferedReader bufferedReader;//为字符输入流加缓冲
-        FileOutputStream fileOutputStream;//字节输出流
+        FileOutputStream fileOutputStream;//文件输出流
         OutputStreamWriter outputStreamWriter;//将字节输出流转换成字符输出流
 
         for(Map.Entry<String,String> entry:map.entrySet()){
