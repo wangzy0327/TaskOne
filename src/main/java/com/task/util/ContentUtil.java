@@ -26,7 +26,7 @@ public class ContentUtil {
     public static Map<String, String> getContent(String url) {
 //        String url = "http://v6.rabbitpre.com/m/neUzquH";
         int waitTime = 10000;
-        String jsonStr = JsoupHelper.get(url, null, "utf-8", headers);
+//        String jsonStr = JsoupHelper.get(url, null, "utf-8", headers);
 //        System.out.println("返回的json字符串：" + jsonStr);
         Document document = HttpUnitHelper.getHtmlPage(url, waitTime);
         Elements elementTitle = document.getElementsByClass("title ellipse");
