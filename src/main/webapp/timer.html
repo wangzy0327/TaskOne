@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>js计算页面停留时间_www.jbxue.com</title>
+    <!--<script type="text/javascript" src="jquery.js"></script>-->
+    <script type="text/javascript" src="js/timer.js"></script>
+</head>
+<body onload="init(); window.setTimeout('show_secs()',1);"  onbeforeunload="return myFunction()">
+<!-- 用<body onload="init(); window.setTimeout('show_secs()',1);">替换原有的<body> -->
+<!--将以下代码加入html的<body></body>之间-->
+<script language="javascript">
+</script>
+<form name="fm0" onsubmit="0">
+    <font color="#888888" size="-1">您在本网页的停留时间:</font>
+    <input type="text" name="time_spent" size=7 onfocus="this.blur()">
+    <input type="button" value="暂停2秒" onclick="s1(2000)" />
+    <a href="http://blog.csdn.net/davislien/article/details/47685831">参考链接</a>
+</form>
+</body>
+</html>
