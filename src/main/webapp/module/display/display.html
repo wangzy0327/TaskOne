@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>display</title>
+    <link rel="stylesheet" href="../../css/iconfont.css">
+    <link rel="stylesheet" href="css/display.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="main-container">
+    <div id="mobile-simulator">
+        <iframe id="app-iframe" src="http://v6.rabbitpre.com/m/neUzquH?mobile=1" class="iframe"></iframe>
+    </div>
+    <div id="label-view">
+        <div class="form-group row form-control-sm">
+            <label class="labTitle col-form-label">页面标签：</label>
+            <div class="txt-box">
+                <div class="tag-box d-flex flex-row" id="articleTagBox">
+                    <input type="hidden" name="hidTags" id="hidTags" value="">
+                    <button class="btn-add-tag" id="addTag"><i class="iconfont" aria-hidden="true">&#xe61f;</i>添加标签</button>
+                </div>
+                <p class="mt8"><span class="ipt-remark">最多添加5个标签</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        var txt_ele = $('#articleTagBox');
+        html = ''
+        $('#addTag').click(function(){
+            $('#hidTags').attr('type','text');
+        });
+        $("#hidTags").blur(function(){
+            var tag_val = $('#hidTags').val();
+            $('#hidTags').val("");
+            $('#hidTags').attr('type','hidden');
+            $('#articleTagBox').prepend('<div class="tag"><span class="name" contenteditable="false">'+tag_val+'</span><i class="iconfont" aria-hidden="true">&#xe641;</i></div>');
+        })
+    })
+</script>
+</body>
+</html>

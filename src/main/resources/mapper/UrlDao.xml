@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.task.dao.UrlDao">
+    <insert id="insertSuccessUrl">
+        <!--主键冲突报错-->
+        INSERT ignore INTO h5url(url)
+        VALUES (#{url})
+    </insert>
+    <select id="queryUrl" resultType="Url" parameterType="String">
+        SELECT id,url
+        FROM h5url
+        WHERE url=#{url}
+    </select>
+</mapper>
