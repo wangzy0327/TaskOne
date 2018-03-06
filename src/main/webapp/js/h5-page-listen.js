@@ -7,94 +7,28 @@ var prevIndex = 0, // 上一页
     activeIndex = 0, // 当前页
     startTime = new Date().getTime(),
     pageInfo = [],
-    isInitArr = true;
+    isInitArr = true,
+    index = 0,
+    time = Date.now();
 
-(function () {
-    // if (activeIndex == 0 && isInitArr && parent.module) {
-    //     // initLabel();
-    // }
-    document.addEventListener('changedTo', function (e) {
-        var indexStr = document.getElementsByClassName('page current')[0].id;
 
-        prevIndex = activeIndex; // 上一页
-        activeIndex = +indexStr.split('-')[1]; // 当前页
-
-        /**
-         * 监听翻页页面标签显示
-         *
-         */
-        // initLabel();
-
-        /**
-         * 监听阅读时间
-         *
-         */
-        if (activeIndex == 0 && isInitArr) {
-            // 初始化数组
-            if (isInitArr) {
-                var len = document.getElementsByClassName('page').length;
-                for (var i = 0; i < len; i++) {
-                    pageInfo[i] = 0;
-                }
-                isInitArr = false;
-            }
-        }
-            // 上一页阅读时间计算
-        var endTime = new Date().getTime();
-        var second = Math.round((endTime - startTime) / 1000); // 秒
-        // 翻页时长少于1秒也算1秒
-        second = second <= 0 ? 1 : second;
-
-        if (pageInfo[prevIndex]) {
-            pageInfo[prevIndex] = pageInfo[prevIndex] + second;
-        } else {
-            pageInfo[prevIndex] = second;
-        }
-        startTime = new Date().getTime();
-        console.log(pageInfo);
-    });
-})();
-
-document.addEventListener('changedTo', function (e) {
-    var indexStr = document.getElementsByClassName('page current')[0].id;
-
-    prevIndex = activeIndex; // 上一页
-    activeIndex = +indexStr.split('-')[1]; // 当前页
-
-    /**
-     * 监听翻页页面标签显示
-     *
-     */
-    // initLabel();
-
-    /**
-     * 监听阅读时间
-     *
-     */
-
-    // 初始化数组
-    if (isInitArr) {
-        var len = document.getElementsByClassName('page').length;
-        for (var i = 0; i < len; i++) {
-            pageInfo[i] = 0;
-        }
-        isInitArr = false;
-    }
-
-    // 上一页阅读时间计算
-    var endTime = new Date().getTime();
-    var second = Math.round((endTime - startTime) / 1000); // 秒
-    // 翻页时长少于1秒也算1秒
-    second = second <= 0 ? 1 : second;
-
-    if (pageInfo[prevIndex]) {
-        pageInfo[prevIndex] = pageInfo[prevIndex] + second;
-    } else {
-        pageInfo[prevIndex] = second;
-    }
-    startTime = new Date().getTime();
-
+// 监听页面转动信息
+document.addEventListener("changedTo", function(e){
+    updateArr();
+    // 获取changeTo之后的页面索引
+    let active = document.getElementsByClassName('page current')[0].id;
+    index = +active.split('-')[1]; // 当前页
+    pageInfo[index] = pageInfo[index] || 0;
+    // 发生changeTo事件的时间点
+    time = Date.now();
 });
+
+// 更新当前页面的浏览时长
+function updateArr(){
+    pageInfo[index] += Date.now() - time;
+    time = Date.now();
+    return pageInfo;
+}
 
 function initLabel() {
     if (parent.module) {

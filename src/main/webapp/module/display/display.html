@@ -24,39 +24,36 @@
             </div>
         </div>
     </div>
-    <br><div>
-        各页面浏览时间:<span id="pageScanTime"></span>
+    <br><div style="margin-bottom: 10%;">
+        各页面浏览时间:<br><span id="pageScanTime"></span>
     </div>
 </div>
 <script>
     var pageScanTime = [];
     var n = 0;
-    function scanTime(){
-        setInterval(function(){
-//            n+=1;
-            pageScanTime = document.getElementById('app-iframe').contentWindow.pageInfo;
-            if (pageScanTime) {
-                var text = '';
-                for (var i = 0; i < pageScanTime.length; i++) {
-                    text += '页面' + (i + 1) + '的浏览时间为：' + pageScanTime[i] + '秒+<br>';
-                }
+
+    function getContent(){
+        let text = "";
+        // 未加载完成获取不到信息
+        if (!document.getElementById('app-iframe').contentWindow.updateArr){
+            return text;
+        }
+        let info = document.getElementById('app-iframe').contentWindow.updateArr();
+        info.forEach(function(val, index){
+            if(val === undefined){
+                return;
             }
-            $('#pageScanTime').html(text);
-        },1000);
-//        console.log('子页面'+window.frames["app-iframe"].activeIndex);
-//        pageScanTime = window.frames["app-iframe"].pageInfo;
-//        if(pageScanTime){
-//            setTimeout('scanTime',1000);
-//            var text = '';
-//            for(var i = 0;i<pageScanTime.length;i++ ){
-//                text += '页面'+(i+1)+'的浏览时间为：'+pageScanTime[i]+'秒+<br>';
-//            }
-//            $('#pageScanTime').innerHTML(text);
-//
+            text = text + "页面" + (index+1) + "的浏览时间为：" + parseInt(val / 1000) + "秒<br>";
+        });
+        return text;
     }
+
+    setInterval(function(){
+        let text = getContent();
+        $('#pageScanTime').html(text);
+    }, 1000);
     $(function(){
-        var indexStr = document.frames['app-iframe'].document.getElementsByClassName('page current')[0].id;
-        console.log(indexStr);
+//        window.onload = scanTime();
         var txt_ele = $('#articleTagBox');
         html = ''
         $('#addTag').click(function(){
@@ -72,9 +69,6 @@
         });
     })
     function delNode(n){
-//        console.log(n);
-//        n.remove();
-//        console.log($(n).parent('div'));
         $(n).parent('div').remove();
     }
 </script>
