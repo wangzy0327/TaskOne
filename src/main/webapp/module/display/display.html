@@ -10,7 +10,7 @@
 <body>
 <div class="main-container">
     <div id="mobile-simulator">
-        <iframe id="app-iframe" src="http://v6.rabbitpre.com/m/neUzquH?mobile=1" class="iframe"></iframe>
+        <iframe id="app-iframe" name="app-iframe" src="../../dist/h5_page/7eMIRQYv2.html" class="iframe"></iframe>
     </div>
     <div id="label-view">
         <div class="form-group row form-control-sm">
@@ -18,15 +18,45 @@
             <div class="txt-box">
                 <div class="tag-box d-flex flex-row" id="articleTagBox">
                     <input type="hidden" name="hidTags" id="hidTags" value="">
-                    <button class="btn-add-tag" id="addTag"><i class="iconfont" aria-hidden="true">&#xe61f;</i>添加标签</button>
+                    <button class="btn-add-tag" id="addTag"><i class="iconfont" aria-hidden="true" >&#xe61f;</i>添加标签</button>
                 </div>
                 <p class="mt8"><span class="ipt-remark">最多添加5个标签</span></p>
             </div>
         </div>
     </div>
+    <br><div>
+        各页面浏览时间:<span id="pageScanTime"></span>
+    </div>
 </div>
 <script>
+    var pageScanTime = [];
+    var n = 0;
+    function scanTime(){
+        setInterval(function(){
+//            n+=1;
+            pageScanTime = document.getElementById('app-iframe').contentWindow.pageInfo;
+            if (pageScanTime) {
+                var text = '';
+                for (var i = 0; i < pageScanTime.length; i++) {
+                    text += '页面' + (i + 1) + '的浏览时间为：' + pageScanTime[i] + '秒+<br>';
+                }
+            }
+            $('#pageScanTime').html(text);
+        },1000);
+//        console.log('子页面'+window.frames["app-iframe"].activeIndex);
+//        pageScanTime = window.frames["app-iframe"].pageInfo;
+//        if(pageScanTime){
+//            setTimeout('scanTime',1000);
+//            var text = '';
+//            for(var i = 0;i<pageScanTime.length;i++ ){
+//                text += '页面'+(i+1)+'的浏览时间为：'+pageScanTime[i]+'秒+<br>';
+//            }
+//            $('#pageScanTime').innerHTML(text);
+//
+    }
     $(function(){
+        var indexStr = document.frames['app-iframe'].document.getElementsByClassName('page current')[0].id;
+        console.log(indexStr);
         var txt_ele = $('#articleTagBox');
         html = ''
         $('#addTag').click(function(){
@@ -36,9 +66,17 @@
             var tag_val = $('#hidTags').val();
             $('#hidTags').val("");
             $('#hidTags').attr('type','hidden');
-            $('#articleTagBox').prepend('<div class="tag"><span class="name" contenteditable="false">'+tag_val+'</span><i class="iconfont" aria-hidden="true">&#xe641;</i></div>');
-        })
+            var len = $('#articleTagBox').children('div').length;
+//            alert(len);
+            $('#articleTagBox').prepend('<div class="tag"><span class="name" contenteditable="false">'+tag_val+'</span><i class="iconfont" aria-hidden="true" onclick="delNode(this)">&#xe641;</i></div>');
+        });
     })
+    function delNode(n){
+//        console.log(n);
+//        n.remove();
+//        console.log($(n).parent('div'));
+        $(n).parent('div').remove();
+    }
 </script>
 </body>
 </html>

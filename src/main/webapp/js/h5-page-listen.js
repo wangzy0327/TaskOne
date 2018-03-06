@@ -10,9 +10,49 @@ var prevIndex = 0, // 上一页
     isInitArr = true;
 
 (function () {
-    if (activeIndex == 0 && isInitArr && parent.module) {
-        initLabel();
-    }
+    // if (activeIndex == 0 && isInitArr && parent.module) {
+    //     // initLabel();
+    // }
+    document.addEventListener('changedTo', function (e) {
+        var indexStr = document.getElementsByClassName('page current')[0].id;
+
+        prevIndex = activeIndex; // 上一页
+        activeIndex = +indexStr.split('-')[1]; // 当前页
+
+        /**
+         * 监听翻页页面标签显示
+         *
+         */
+        // initLabel();
+
+        /**
+         * 监听阅读时间
+         *
+         */
+        if (activeIndex == 0 && isInitArr) {
+            // 初始化数组
+            if (isInitArr) {
+                var len = document.getElementsByClassName('page').length;
+                for (var i = 0; i < len; i++) {
+                    pageInfo[i] = 0;
+                }
+                isInitArr = false;
+            }
+        }
+            // 上一页阅读时间计算
+        var endTime = new Date().getTime();
+        var second = Math.round((endTime - startTime) / 1000); // 秒
+        // 翻页时长少于1秒也算1秒
+        second = second <= 0 ? 1 : second;
+
+        if (pageInfo[prevIndex]) {
+            pageInfo[prevIndex] = pageInfo[prevIndex] + second;
+        } else {
+            pageInfo[prevIndex] = second;
+        }
+        startTime = new Date().getTime();
+        console.log(pageInfo);
+    });
 })();
 
 document.addEventListener('changedTo', function (e) {
@@ -25,7 +65,7 @@ document.addEventListener('changedTo', function (e) {
      * 监听翻页页面标签显示
      *
      */
-    initLabel();
+    // initLabel();
 
     /**
      * 监听阅读时间
