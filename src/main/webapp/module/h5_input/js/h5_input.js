@@ -1,7 +1,12 @@
 $(document).ready(function () {
     $("#url_btn").click(function () {
         var url = $("#url").val();
+        var tagStr = $("#tags_1").val();
         console.log(url);
+        console.log(tagStr);
+        var tags = [];
+        tags = tagStr.split(",");
+        console.log(tags);
         if(url == ""){
             alert("请输入URL");
             return false;
@@ -13,7 +18,8 @@ $(document).ready(function () {
             contentType: "application/json;charset=UTF-8",
             // 向后端传递的数据
             data: JSON.stringify({
-                "url": url
+                "url": url,
+                "tags": tags
             }),
             success: function (data) {
                 <!-- 处理后端返回的数据 -->
