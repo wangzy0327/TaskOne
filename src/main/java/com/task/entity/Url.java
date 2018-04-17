@@ -4,6 +4,10 @@ public class Url {
     private long id;
     private String url;
 
+    public Url(String url) {
+        this.url = url;
+    }
+
     public long getId() {
         return id;
     }

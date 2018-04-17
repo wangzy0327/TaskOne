@@ -26,9 +26,9 @@
   </servlet-mapping>
 
   <!-- 系统默认页面 -->
-  <welcome-file-list>
-    <welcome-file>module/h5_input/h5_input.html</welcome-file>
-  </welcome-file-list>
+  <!--<welcome-file-list>-->
+    <!--<welcome-file>module/h5_input/h5_input.html</welcome-file>-->
+  <!--</welcome-file-list>-->
 
   <!-- 对于非controller的请求处理 -->
   <servlet-mapping>
